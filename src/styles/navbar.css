@@ -1,0 +1,32 @@
+.navbar {
+  background-color: #f29f58;
+  padding: 1rem;
+}
+
+.navbar-list {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.navbar-item a:hover {
+  background-color: #ab4459;
+  border-radius: 4px;
+}
+
+.create-productions a {
+  background-color: #ab4459;
+  border-radius: 4px;
+}
+
+.create-productions a:hover {
+  background-color: #932b42;
+}

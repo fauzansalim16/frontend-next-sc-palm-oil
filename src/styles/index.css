@@ -1,0 +1,7 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Mengatur tinggi container agar memenuhi tinggi viewport */
+  flex-direction: column; /* Mengatur arah flex agar vertikal */
+}
