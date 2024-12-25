@@ -131,8 +131,11 @@ export default function CreateProduction() {
                 <Form.Label>Type</Form.Label>
                 <Form.Control as="select" name="type" value={formData.type} onChange={handleChange} required>
                   <option value="">Select Type</option>
-                  <option value="TypeA">Type A</option>
-                  <option value="TypeB">Type B</option>
+                  <option value="FARM">Farm</option>
+                  <option value="TRANSPORT">Transport</option>
+                  <option value="MILL">Mill</option>
+                  <option value="REFINERY">Refinery</option>
+                  <option value="MANUFACTURING">Manufacturing</option>
                   {/* Add other types as needed */}
                 </Form.Control>
               </Form.Group>

@@ -1,13 +1,13 @@
-// pages/productions/[id].js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Card, ListGroup, Container } from 'react-bootstrap';
+import { Card, ListGroup, Container, Button, Form, Row, Col } from 'react-bootstrap';
 import Navbar from '../../components/Navbar';
 
 export default function ProductionDetails() {
   const router = useRouter();
   const { id } = router.query;
   const [production, setProduction] = useState(null);
+  const [searchQuery, setSearchQuery] = useState(''); // State untuk query pencarian
 
   useEffect(() => {
     if (!id) return;
@@ -29,12 +29,41 @@ export default function ProductionDetails() {
     fetchProduction();
   }, [id]);
 
+  // Fungsi untuk menangani pencarian
+  const handleSearch = (e: any) => {
+    e.preventDefault(); // Mencegah reload halaman
+    if (searchQuery) {
+      router.push(`/productions/hash/${searchQuery}`); // Navigasi ke halaman berdasarkan hash
+    }
+  };
+
   if (!production) return <p>Loading...</p>;
 
   return (
     <>
       <Navbar />
-      <Container className="mt-5">
+      <Container className="mt-5 mb-5" style={{ maxWidth: '700px' }}>
+        {/* Search Bar */}
+        <div className="mt-5 mb-4">
+          <Form onSubmit={handleSearch}>
+            <Row>
+              <Col xs="auto">
+                <Form.Control type="text" placeholder="Search by Hash in blockchain" className="mr-sm-2" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ width: '580px' }} />
+              </Col>
+              <Col xs="auto">
+                <Button
+                  type="submit"
+                  style={{
+                    backgroundColor: '#AB4459',
+                    border: 'none',
+                  }}
+                >
+                  Search
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </div>
         <Card>
           <Card.Header>Production Details</Card.Header>
           <Card.Body>
@@ -55,10 +84,28 @@ export default function ProductionDetails() {
                 <strong>Location:</strong> {production.production_location}
               </ListGroup.Item>
               <ListGroup.Item>
-                <strong>Production Time:</strong> {new Date(production.production_time).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+                <strong>Production Time:</strong>{' '}
+                {new Date(production.production_time).toLocaleString('en-GB', {
+                  day: '2-digit',
+                  month: '2-digit',
+                  year: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit',
+                })}
               </ListGroup.Item>
               <ListGroup.Item>
-                <strong>Additional Info:</strong> {production.additional_info || 'None'}
+                <strong>Additional Info:</strong>
+                {production.additional_info ? (
+                  <ul>
+                    {Object.entries(JSON.parse(production.additional_info)).map(([key, value]) => (
+                      <li key={key}>
+                        <strong>{key.replace('_', ' ').toUpperCase()}:</strong> {value}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  'None'
+                )}
               </ListGroup.Item>
               <ListGroup.Item>
                 <strong>Hash:</strong> {production.hash}
