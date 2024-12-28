@@ -115,7 +115,7 @@ function Profile() {
       <Navbar />
       <Container fluid className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
         {/* Profile Info */}
-        <Card className="mb-4 mt-5 bg-light">
+        <Card className="mb-4 mt-5 bg-light" style={{ width: '600px' }}>
           <Card.Body>
             <Card.Title>
               <h1 className="text-center mb-5">My Profile</h1>
@@ -152,7 +152,7 @@ function Profile() {
         </Card>
 
         {/* User Table */}
-        <h3 className="mb-5">User List</h3>
+        <h3 className="mb-3 mt-3">User List</h3>
         <Table striped bordered hover responsive>
           <thead>
             <tr>

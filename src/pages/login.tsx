@@ -13,7 +13,7 @@ export default function Login() {
   };
   return (
     <>
-      <h1 className="text-center mt-5">Welcome to Sistem Manajemen</h1>
+      <h1 className="text-center mt-5">Welcome!</h1>
       <Container style={{ maxWidth: '400px', marginTop: '50px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px' }}>
         <h2 className="text-center mt-3 mb-5">Login</h2>
         <Form onSubmit={handleSubmit}>
@@ -27,7 +27,7 @@ export default function Login() {
           </Form.Group>
           <div className="mt-3 mb-4" style={{ display: 'flex', justifyContent: 'center' }}>
             <Button style={{ backgroundColor: '#AB4459', border: 'none' }} variant="primary" type="submit">
-              Submit
+              Login
             </Button>
           </div>
         </Form>
