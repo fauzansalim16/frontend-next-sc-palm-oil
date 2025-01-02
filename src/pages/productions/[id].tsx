@@ -7,7 +7,8 @@ export default function ProductionDetails() {
   const router = useRouter();
   const { id } = router.query;
   const [production, setProduction] = useState(null);
-  const [searchQuery, setSearchQuery] = useState(''); // State untuk query pencarian
+  const [offchainHash, setOffchainHash] = useState('');
+  const [txHash, setTxHash] = useState('');
 
   useEffect(() => {
     if (!id) return;
@@ -30,10 +31,10 @@ export default function ProductionDetails() {
   }, [id]);
 
   // Fungsi untuk menangani pencarian
-  const handleSearch = (e: any) => {
-    e.preventDefault(); // Mencegah reload halaman
-    if (searchQuery) {
-      router.push(`/productions/hash/${searchQuery}`); // Navigasi ke halaman berdasarkan hash
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (offchainHash && txHash) {
+      router.push(`/productions/hash/${offchainHash}?txHash=${txHash}`);
     }
   };
 
@@ -42,24 +43,33 @@ export default function ProductionDetails() {
   return (
     <>
       <Navbar />
-      <Container className="mt-5 mb-5 " style={{ maxWidth: '700px' }}>
-        {/* Search Bar */}
+      <Container className="mt-5 mb-5" style={{ maxWidth: '700px' }}>
         <div className="mt-5 mb-4">
           <Form onSubmit={handleSearch}>
-            <Row>
-              <Col xs="auto">
-                <Form.Control type="text" placeholder="Search by Hash in blockchain" className="mr-sm-2" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ width: '580px' }} />
+            <Row className="mb-3">
+              <Col>
+                <Form.Control type="text" placeholder="Enter Production Hash" value={offchainHash} onChange={(e) => setOffchainHash(e.target.value)} />
               </Col>
-              <Col xs="auto">
-                <Button
-                  type="submit"
-                  style={{
-                    backgroundColor: '#AB4459',
-                    border: 'none',
-                  }}
-                >
-                  Search
-                </Button>
+            </Row>
+            <Row className="mb-3">
+              <Col>
+                <Form.Control type="text" placeholder="Enter Transaction Hash" value={txHash} onChange={(e) => setTxHash(e.target.value)} />
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <div className="d-flex justify-content-center">
+                  <Button
+                    type="submit"
+                    style={{
+                      backgroundColor: '#AB4459',
+                      border: 'none',
+                      width: '20%',
+                    }}
+                  >
+                    Search
+                  </Button>
+                </div>
               </Col>
             </Row>
           </Form>

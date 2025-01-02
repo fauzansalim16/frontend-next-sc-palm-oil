@@ -14,18 +14,20 @@ export default function ProductionByHash() {
 
     const fetchProduction = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/productions/offchain/${hash}`);
+        const { txHash } = router.query;
+        const response = await fetch(`http://localhost:5000/api/productions/offchain/${hash}?tx_hash=${txHash}`);
+
         if (response.ok) {
           const data = await response.json();
           setProduction(data);
         } else {
           Swal.fire({
-            icon: 'error', // Jenis ikon error
+            icon: 'error',
             title: 'Not Found',
             text: 'Data yang Anda cari tidak ditemukan.',
             confirmButtonText: 'OK',
           });
-          router.push(`/home`);
+          router.push('/home');
         }
       } catch (error) {
         console.error('Error fetching production by hash:', error);
@@ -33,7 +35,7 @@ export default function ProductionByHash() {
     };
 
     fetchProduction();
-  }, [hash]);
+  }, [hash, router.query.txHash]);
 
   if (!production) return <p>Loading...</p>;
 
@@ -51,6 +53,12 @@ export default function ProductionByHash() {
               </ListGroup.Item>
               <ListGroup.Item>
                 <strong>Production ID:</strong> {production.creator_id}
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <strong>Production Creator:</strong> {production.transaction_creator}
+              </ListGroup.Item>{' '}
+              <ListGroup.Item>
+                <strong>Validator:</strong> {production.block_creator}
               </ListGroup.Item>
               <ListGroup.Item>
                 <strong>Timestamp:</strong> {new Date(production.timestamp * 1000).toLocaleString()}
