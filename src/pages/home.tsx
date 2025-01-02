@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'; // Ditambahkan untuk navigasi ke halama
 import { Button, Table, Form, Container, Row, Col } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
 import Swal from 'sweetalert2';
+import { PackageSearch } from 'lucide-react';
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -68,6 +69,7 @@ function Home() {
                     border: 'none',
                   }}
                 >
+                  <PackageSearch className="mb-1 me-1" />
                   Search
                 </Button>
               </Col>
@@ -76,7 +78,8 @@ function Home() {
         </div>
 
         {/* Tabel Data */}
-        <div className="mt-4">
+        <div className="mt-4 shadow-lg" style={{ marginBottom: '200px', padding: '10px', borderRadius: '15px' }}>
+          <h2 className="text-center mb-4 mt-3">Data Production</h2>
           <Table striped bordered hover responsive>
             <thead>
               <tr>
@@ -90,18 +93,20 @@ function Home() {
               </tr>
             </thead>
             <tbody>
-              {productions.map((production) => (
-                <tr key={production.id} onClick={() => handleRowClick(production.id)} style={{ cursor: 'pointer' }}>
-                  {' '}
-                  <td>{production.id}</td>
-                  <td>{production.linked_productions_id.join(', ')}</td>
-                  <td>{production.type}</td>
-                  <td>{production.quantity}</td>
-                  <td>{production.hash}</td>
-                  <td>{production.production_location}</td>
-                  <td>{new Date(production.production_time).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
-                </tr>
-              ))}
+              {productions
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                .map((production) => (
+                  <tr key={production.id} onClick={() => handleRowClick(production.id)} style={{ cursor: 'pointer' }}>
+                    {' '}
+                    <td>{production.id}</td>
+                    <td>{production.linked_productions_id.join(', ')}</td>
+                    <td>{production.type}</td>
+                    <td>{production.quantity}</td>
+                    <td>{production.hash}</td>
+                    <td>{production.production_location}</td>
+                    <td>{new Date(production.production_time).toLocaleString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </div>

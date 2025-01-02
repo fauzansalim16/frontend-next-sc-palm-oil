@@ -19,7 +19,7 @@ export default function Navbar() {
           <Link href="/profile">Profile</Link>
         </li>
         <li className="navbar-item">
-          <Link href="/login">Login</Link>
+          <Link href="/login">Logout</Link>
         </li>
         {isHomePage && (
           <li className="navbar-item create-productions ms-1">

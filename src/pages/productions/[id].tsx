@@ -42,7 +42,7 @@ export default function ProductionDetails() {
   return (
     <>
       <Navbar />
-      <Container className="mt-5 mb-5" style={{ maxWidth: '700px' }}>
+      <Container className="mt-5 mb-5 " style={{ maxWidth: '700px' }}>
         {/* Search Bar */}
         <div className="mt-5 mb-4">
           <Form onSubmit={handleSearch}>
@@ -64,8 +64,10 @@ export default function ProductionDetails() {
             </Row>
           </Form>
         </div>
-        <Card>
-          <Card.Header>Production Details</Card.Header>
+        <Card className="shadow-lg p-4 rounded" style={{ marginBottom: '200px' }}>
+          <Card.Header className="text-center">
+            <strong>Production Details</strong>
+          </Card.Header>
           <Card.Body>
             <ListGroup variant="flush">
               <ListGroup.Item>

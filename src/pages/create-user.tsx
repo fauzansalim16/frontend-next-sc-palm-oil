@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
 import { useRouter } from 'next/router';
+import { User } from 'lucide-react';
 
 export default function CreateUser() {
   // State untuk menyimpan data form
@@ -50,8 +51,11 @@ export default function CreateUser() {
   return (
     <>
       <Navbar />
-      <Container className="mt-5" style={{ maxWidth: '450px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px' }}>
-        <h2>Create New User</h2>
+      <Container className="shadow-lg p-4 rounded" style={{ maxWidth: '450px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px', marginBottom: '200px', marginTop: '90px' }}>
+        <div className="d-flex align-items-center mb-3 mt-3 me-3">
+          <User size={40} className="text-center mb-2" />
+          <h2>Create New User</h2>
+        </div>
         <Form onSubmit={handleSubmit}>
           {/* Input untuk username */}
           <Form.Group className="mb-3" controlId="formUsername">

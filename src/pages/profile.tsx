@@ -3,6 +3,7 @@ import { Button, Table, Container, Row, Col, Card } from 'react-bootstrap';
 import Swal from 'sweetalert2'; // Mengimpor SweetAlert2
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
+import { UserCircle, IdCard, WholeWord, Calendar, Key, Shield, CirclePlus, Users } from 'lucide-react';
 
 function Profile() {
   const [user, setUser] = useState({
@@ -115,36 +116,43 @@ function Profile() {
       <Navbar />
       <Container fluid className="d-flex flex-column align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
         {/* Profile Info */}
-        <Card className="mb-4 mt-5 bg-light" style={{ width: '600px' }}>
+        <Card className="shadow-lg p-4 rounded mb-4 mt-5 bg-light" style={{ width: '650px' }}>
           <Card.Body>
-            <Card.Title>
-              <h1 className="text-center mb-5">My Profile</h1>
+            <Card.Title className="d-flex align-items-center mb-3">
+              <UserCircle size={32} className="me-2" />
+              <h1 className="mb-0">My Profile</h1>
             </Card.Title>
+
             <Row>
               <Col sm={4}>
                 <Card.Text>
+                  <IdCard className="m-1" />
                   <strong>User ID:</strong> {user.id}
                 </Card.Text>
                 <Card.Text>
+                  <WholeWord className="m-1" />
                   <strong>Username:</strong> {user.username}
                 </Card.Text>
                 <Card.Text>
+                  <Shield className="m-1" />
                   <strong>Role:</strong> {user.role}
                 </Card.Text>
               </Col>
               <Col xs={12} sm={8}>
                 <Card.Text>
+                  <Calendar className="m-1" />
                   <strong>Created At:</strong> {user.created_at}
                 </Card.Text>
-                <Card.Text>
+                <Card.Text className="m-1">
+                  <Key />
                   <strong>Public Key:</strong> {user.public_key}
                 </Card.Text>
               </Col>
             </Row>
-            <div className="d-flex justify-content-center mt-5 mb-2">
+            <div className=" mt-4">
               <Link href="/create-user">
                 <Button type="submit" style={{ backgroundColor: '#AB4459', border: 'none' }}>
-                  Create User
+                  <CirclePlus className="mb-1" /> Create User
                 </Button>{' '}
               </Link>
             </div>
@@ -152,7 +160,10 @@ function Profile() {
         </Card>
 
         {/* User Table */}
-        <h3 className="mb-3 mt-3">User List</h3>
+        <div className="d-flex align-items-center mb-3">
+          <Users className="me-2" />
+          <h3 className="mb-3 mt-3">User List</h3>
+        </div>
         <Table striped bordered hover responsive>
           <thead>
             <tr>

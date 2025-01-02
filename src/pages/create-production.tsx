@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Container, Row, Col, Form, Button, Alert } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import Navbar from '../components/Navbar';
+import { Archive, CirclePlus } from 'lucide-react';
 
 export default function CreateProduction() {
   const router = useRouter();
@@ -111,10 +112,17 @@ export default function CreateProduction() {
   return (
     <>
       <Navbar />
-      <Container fluid="sm" className="d-flex justify-content-center align-items-center min-vh-100" style={{ maxWidth: '600px', marginTop: '70px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px' }}>
+      <Container
+        fluid="sm"
+        className="shadow-lg p-4 rounded d-flex justify-content-center align-items-center min-vh-100"
+        style={{ maxWidth: '600px', marginTop: '70px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px', marginBottom: '200px' }}
+      >
         <Row className="w-100">
           <Col>
-            <h1 className="text-center mb-4">Create a New Production</h1>
+            <div className="d-flex align-items-center mb-4 mt-3">
+              <Archive size={40} className="me-3" />
+              <h1 className="text-center ">Create a New Production</h1>
+            </div>
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
               <Form.Group controlId="business_id" className="mb-3">
@@ -156,8 +164,9 @@ export default function CreateProduction() {
               </Form.Group>
 
               <div className="d-flex justify-content-center mt-5 mb-3">
-                <Button variant="primary" type="submit" className="w-100" style={{ maxWidth: '250px' }} disabled={loading}>
-                  {loading ? 'Submitting...' : 'Create Production'}
+                <Button type="submit" className="w-100" style={{ maxWidth: '110px', backgroundColor: '#AB4459', border: 'none' }} disabled={loading}>
+                  <CirclePlus className="mb-1 me-1" />
+                  {loading ? 'Submitting...' : 'Create'}
                 </Button>
               </div>
             </Form>
