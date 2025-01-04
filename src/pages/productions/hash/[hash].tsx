@@ -43,8 +43,8 @@ export default function ProductionByHash() {
     <>
       <Navbar />
       <h1 className="text-center mt-5 mb-4">Data dari blockchain</h1>
-      <Container className="mt-5" style={{ maxWidth: '700px' }}>
-        <Card>
+      <Container className="mt-5 d-flex" style={{ maxWidth: '700px', marginBottom: '200px' }}>
+        <Card className=" shadow-lg rounded ">
           <Card.Header className="text-center">Production Details (from blockchain)</Card.Header>
           <Card.Body>
             <ListGroup variant="flush">

@@ -105,10 +105,10 @@ export default function Business() {
       <Navbar />
 
       <div className="container mt-4 d-flex flex-column align-items-center">
-        <h1>Business Management</h1>
+        <h1 className="mt-5">Business Management</h1>
 
         {/* Business Table */}
-        <Table striped bordered hover style={{ maxWidth: '1000px' }}>
+        <Table className="shadow-lg p-3 rounded-2 mt-5 mb-3" striped bordered hover style={{ maxWidth: '1000px' }}>
           <thead>
             <tr>
               <th>ID</th>
@@ -136,8 +136,8 @@ export default function Business() {
         </Table>
 
         {/* Create Business Form */}
-        <h2>Create New Business</h2>
-        <Form onSubmit={handleSubmit} className="mb-5 mt-4" style={{ width: '500px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px' }}>
+        <Form onSubmit={handleSubmit} className=" shadow-lg p-3 rounded-2" style={{ width: '500px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px', marginTop: '50px', marginBottom: '200px' }}>
+          <h2 className="text-center mt-4 mb-5">Create New Business</h2>
           <Form.Group className="mb-3">
             <Form.Label>Owner ID</Form.Label>
             <Form.Control type="text" name="owner_id" value={formData.owner_id} onChange={handleChange} required />
@@ -176,7 +176,7 @@ export default function Business() {
           </Form.Group>
 
           <div className="d-flex justify-content-center mt-4 mb-3">
-            <Button variant="primary" type="submit" disabled={loading}>
+            <Button type="submit" disabled={loading} style={{ backgroundColor: '#AB4459', border: 'none' }}>
               {loading ? 'Submitting...' : 'Create Business'}
             </Button>
           </div>

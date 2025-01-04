@@ -3,13 +3,17 @@ import Form from 'react-bootstrap/Form';
 import Container from 'react-bootstrap/Container';
 import Swal from 'sweetalert2';
 import { LogIn, Lock, WholeWord } from 'lucide-react';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const router = useRouter();
   const handleSubmit = (e: any) => {
     e.preventDefault();
     Swal.fire({
       title: 'Login berhasil!',
       icon: 'success',
+    }).then(() => {
+      router.push('/home');
     });
   };
   return (
