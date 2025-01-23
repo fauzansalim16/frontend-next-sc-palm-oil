@@ -3,9 +3,11 @@ import '../styles/index.css';
 import { Table, Form, Button } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
 export default function Business() {
+  const [token, setToken] = useState<string | null>(null);
   const [businesses, setBusinesses] = useState([]);
   const [formData, setFormData] = useState({
     owner_id: '',
@@ -22,6 +24,7 @@ export default function Business() {
   useEffect(() => {
     // Fetch data from API or server
     // Replace with your API endpoint
+    setToken(Cookies.get('token') || null);
     fetch('http://localhost:5000/api/businesses')
       .then((response) => response.json())
       .then((data) => setBusinesses(data))
@@ -136,51 +139,53 @@ export default function Business() {
         </Table>
 
         {/* Create Business Form */}
-        <Form onSubmit={handleSubmit} className=" shadow-lg p-3 rounded-2" style={{ width: '500px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px', marginTop: '50px', marginBottom: '200px' }}>
-          <h2 className="text-center mt-4 mb-5">Create New Business</h2>
-          <Form.Group className="mb-3">
-            <Form.Label>Owner ID</Form.Label>
-            <Form.Control type="text" name="owner_id" value={formData.owner_id} onChange={handleChange} required />
-          </Form.Group>
+        {token !== 'user' && (
+          <Form onSubmit={handleSubmit} className=" shadow-lg p-3 rounded-2" style={{ width: '500px', backgroundColor: '#FFF8E6', padding: '20px', borderRadius: '10px', marginTop: '50px', marginBottom: '200px' }}>
+            <h2 className="text-center mt-4 mb-5">Create New Business</h2>
+            <Form.Group className="mb-3">
+              <Form.Label>Owner ID</Form.Label>
+              <Form.Control type="text" name="owner_id" value={formData.owner_id} onChange={handleChange} required />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" name="name" value={formData.name} onChange={handleChange} required />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" name="name" value={formData.name} onChange={handleChange} required />
+            </Form.Group>
 
-          <Form.Group className="mb-3" style={{ width: '170px' }}>
-            <Form.Label>Created At</Form.Label>
-            <Form.Control type="datetime-local" name="created_at" value={formData.created_at} onChange={handleChange} required />
-          </Form.Group>
+            <Form.Group className="mb-3" style={{ width: '170px' }}>
+              <Form.Label>Created At</Form.Label>
+              <Form.Control type="datetime-local" name="created_at" value={formData.created_at} onChange={handleChange} required />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Additional Info</Form.Label>
-            <Form.Control type="text" name="additional_info" value={formData.additional_info} onChange={handleChange} />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Additional Info</Form.Label>
+              <Form.Control type="text" name="additional_info" value={formData.additional_info} onChange={handleChange} />
+            </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Location</Form.Label>
-            <Form.Control type="text" name="location" value={formData.location} onChange={handleChange} required />
-          </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Location</Form.Label>
+              <Form.Control type="text" name="location" value={formData.location} onChange={handleChange} required />
+            </Form.Group>
 
-          <Form.Group className="mb-3" style={{ width: '130px' }}>
-            <Form.Label>Type</Form.Label>
-            <Form.Control as="select" name="type" value={formData.type} onChange={handleChange} required>
-              <option value="">Select Type</option>
-              <option value="FARM">Farm</option>
-              <option value="TRANSPORT">Transport</option>
-              <option value="MILL">Mill</option>
-              <option value="REFINERY">Refinery</option>
-              <option value="MANUFACTURING">Manufacturing</option>
-            </Form.Control>
-          </Form.Group>
+            <Form.Group className="mb-3" style={{ width: '130px' }}>
+              <Form.Label>Type</Form.Label>
+              <Form.Control as="select" name="type" value={formData.type} onChange={handleChange} required>
+                <option value="">Select Type</option>
+                <option value="FARM">Farm</option>
+                <option value="TRANSPORT">Transport</option>
+                <option value="MILL">Mill</option>
+                <option value="REFINERY">Refinery</option>
+                <option value="MANUFACTURING">Manufacturing</option>
+              </Form.Control>
+            </Form.Group>
 
-          <div className="d-flex justify-content-center mt-4 mb-3">
-            <Button type="submit" disabled={loading} style={{ backgroundColor: '#AB4459', border: 'none' }}>
-              {loading ? 'Submitting...' : 'Create Business'}
-            </Button>
-          </div>
-        </Form>
+            <div className="d-flex justify-content-center mt-4 mb-3">
+              <Button type="submit" disabled={loading} style={{ backgroundColor: '#AB4459', border: 'none' }}>
+                {loading ? 'Submitting...' : 'Create Business'}
+              </Button>
+            </div>
+          </Form>
+        )}
       </div>
     </>
   );

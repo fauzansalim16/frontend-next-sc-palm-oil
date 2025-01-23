@@ -3,6 +3,7 @@ import { Button, Table, Container, Row, Col, Card } from 'react-bootstrap';
 import Swal from 'sweetalert2'; // Mengimpor SweetAlert2
 import Navbar from '../components/Navbar';
 import Link from 'next/link';
+import Cookies from 'js-cookie';
 import { UserCircle, IdCard, WholeWord, Calendar, Key, Shield, CirclePlus, Users } from 'lucide-react';
 
 function Profile() {
@@ -15,9 +16,11 @@ function Profile() {
   });
 
   const [users, setUsers] = useState([]);
+  const [token, setToken] = useState<string | null>(null);
 
   // Ambil data profile pengguna dengan id = 1
   useEffect(() => {
+    setToken(Cookies.get('token') || null);
     const fetchUser = async () => {
       try {
         const response = await fetch('http://localhost:5000/api/users/1');
@@ -149,13 +152,15 @@ function Profile() {
                 </Card.Text>
               </Col>
             </Row>
-            <div className=" mt-4">
-              <Link href="/create-user">
-                <Button type="submit" style={{ backgroundColor: '#AB4459', border: 'none' }}>
-                  <CirclePlus className="mb-1" /> Create User
-                </Button>{' '}
-              </Link>
-            </div>
+            {token !== 'user' && (
+              <div className=" mt-4">
+                <Link href="/create-user">
+                  <Button type="submit" style={{ backgroundColor: '#AB4459', border: 'none' }}>
+                    <CirclePlus className="mb-1" /> Create User
+                  </Button>{' '}
+                </Link>
+              </div>
+            )}
           </Card.Body>
         </Card>
 
@@ -172,7 +177,7 @@ function Profile() {
               <th>Role</th>
               <th>Created At</th>
               <th>Public Key</th>
-              <th>Action</th>
+              {token !== 'user' && <th>Action</th>}
             </tr>
           </thead>
           <tbody>
@@ -183,11 +188,13 @@ function Profile() {
                 <td>{user.role.name}</td>
                 <td>{new Date(user.created_at).toLocaleString()}</td>
                 <td style={{ maxWidth: '400px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{user.public_key}</td>
-                <td>
-                  <Button variant="danger" onClick={() => handleDelete(user.id)}>
-                    Delete
-                  </Button>
-                </td>
+                {token !== 'user' && (
+                  <td>
+                    <Button variant="danger" onClick={() => handleDelete(user.id)}>
+                      Delete
+                    </Button>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

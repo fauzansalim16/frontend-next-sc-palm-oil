@@ -56,7 +56,6 @@ function Home() {
         {/* Search Bar */}
         <div className="mt-5 mb-4">
           <Form onSubmit={handleSearch}>
-            {' '}
             <Row>
               <Col xs="auto">
                 <Form.Control type="text" placeholder="Search by ID" className="mr-sm-2" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} style={{ width: '350px' }} />
@@ -97,7 +96,6 @@ function Home() {
                 .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
                 .map((production) => (
                   <tr key={production.id} onClick={() => handleRowClick(production.id)} style={{ cursor: 'pointer' }}>
-                    {' '}
                     <td>{production.id}</td>
                     <td>{production.linked_productions_id.join(', ')}</td>
                     <td>{production.type}</td>
